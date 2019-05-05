@@ -1,0 +1,4 @@
+per installare Express (e gli altri packages) basta:
+npm installar
+(perché usa il file package-lock.json per individuare le dipendenze)
+
