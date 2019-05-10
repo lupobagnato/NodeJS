@@ -17,8 +17,9 @@ app.use((req, res, next) => {
     res.end('<html><body><h1>This is an Express Server</h1></body></html>');
 });
 
-const server=http.createServer(app);
+app.listen(port, () => console.log(`Listening on ${port}`));
 
-server.listen(port, hostname, ()=>{
-    console.log(`Server Express running at http://${hostname}:${port}`);
-});
+// const server=http.createServer(app);
+// server.listen(port, hostname, ()=>{
+//     console.log(`Server Express running at http://${hostname}:${port}`);
+// });
