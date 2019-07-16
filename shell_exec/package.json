@@ -1,0 +1,12 @@
+{
+  "name": "shell_exec",
+  "version": "1.0.0",
+  "description": "esecuzione di shell script da Node.JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "author": "Sergio",
+  "license": "ISC"
+}
