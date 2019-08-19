@@ -1,0 +1,265 @@
+<html>
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/moduli_copiati/bootstrap/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css"> -->
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <!-- jQuery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+    <script src="moduli_copiati/jquery/dist/jquery.slim.min.js"></script>
+    <script src="moduli_copiati/popper.js/dist/umd/popper.min.js"></script>
+    <script src="moduli_copiati/bootstrap/dist/js/bootstrap.min.js"></script>  
+    
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <title> index.html </title>
+</head>
+
+    <body>
+        <div class="container">
+            <div class="row row-content">
+                <div class="col-md-4">    <!-- lato SX-->
+                    <div class="row">
+                        <button type="button" class="btn btn-primary" onclick="axiosGetId('0')">Test 0</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-info" onclick="axiosGetId('1')" >Test 1</a>                        
+                    </div>                
+                    <div class="row">
+                        <button type="button" class="btn btn-primary" onclick="axiosGetId('2')">Test 2</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-info" onclick="axiosGetId('9')">Test 9</button>
+                    </div>
+                    <hr>
+                </div>
+                <div class="col-md">    <!-- lato DX-->
+                    <h4 id=job_des>nome procedura</h4>
+                    <form action="">
+                        <!-- Campi di Input -->
+                        <div class="form-group row">
+                            <label for="job_dir" class="col-md-2 col-form-label">Directory</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="job_dir" placeholder="rep_dir">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="job_name" class="col-md-2 col-form-label">Job / Trans</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="job_name" placeholder="rep_obj">
+                            </div>
+                        </div>
+                        <!-- Parametri -->
+                        <div class="gruppo-parametri form-group row" id="PP0" name="PPall" style="display:none">
+                                <label for="P0" class="col-md-2 col-form-label">parametro 0</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="P0" placeholder="____">
+                                </div>
+                        </div>
+                        <div class="gruppo-parametri form-group row" id="PP1" name="PPall" style="display:none">
+                            <label for="P1" class="col-md-2 col-form-label">parametro 1</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="P1" placeholder="____">
+                            </div>
+                        </div> 
+                        <div class="gruppo-parametri form-group row" id="PP2" name="PPall" style="display:none">
+                            <label for="P2" class="col-md-2 col-form-label">parametro 2</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="P2" placeholder="____">
+                            </div>
+                        </div>  
+
+                        <!-- Bottoni -->
+                        <div class="form-group row">
+                            <div class="offset-md-2 col-md-6">
+                                <button class="btn btn-primary" type="button" onclick="axiosPost()">Run</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-success" type="button" onclick="test()">Test</button>
+                            </div>
+                            <div class="col-md-2">
+                                    <button class="btn btn-success" type="button" onclick="hideEle()">Hide</button>
+                            </div>
+
+                        </div>
+                    </form>
+                    <hr>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div hidden>
+                <button id="bt1" onclick="axiosGet()">Axios GET</button>
+                <p id="get_res"></p>                
+                <button id="bt2" onclick="axiosPost()">Axios POST</button>
+            </div>    
+                <!-- <h6 id="post_res"></h6>
+                <h4 id="cmd">cmd</h4>
+                <h4 id="working_dir">working_dir</h4>
+                <h2 id="rep_obj">rep_obj</h2> -->
+                <h6 id="log" style = "font-family:arial; color:rgb(0, 0, 255);">log log log log </h6>
+                <!-- <h6 id="err" style = "font-family:arial; color:rgb(255, 0, 0);">err err err err </h6> -->            
+        </div>
+        
+    </body>
+    
+    <script>
+     var currentJob = {};
+
+    // TEST
+    function test() {
+        var ele = $("#param1");    
+        console.log(ele.attr('id'));
+        console.log(ele.html());
+        ele.attr('name', 'Anno');
+        ele.attr('placeholder', 'YYYY');
+        var label = $("label[for='param1']")
+        console.log(label.text())
+        label.text('Anno')
+        // $("#ultimo").after(txt);
+    }
+    function hideEle() {
+        var ele = $("#PP1");
+        if (ele.is(":visible")) 
+            // ele.hide();
+            $(".gruppo-parametri").hide();
+        else
+            // ele.show();
+            $(".gruppo-parametri").show(); 
+    }
+    function x(job) {
+        var j=0;
+        var ele, label; 
+        console.log(job);        
+        if (job.pdi_par) {
+            // console.log(job.pdi_par);                
+            for (var k in job.pdi_par) {
+                console.log(' -param='+k+'='+job.pdi_par[k]); 
+                ele = $("#P"+j);
+                grp = $("#PP"+j);
+                label =  $("label[for='P" + j + "']")
+                ele.val(job.pdi_par[k]);
+                label.text(k);
+                j++;
+                grp.show();
+            };
+            
+            // var i;
+            // console.log(Object.keys(job.pdi_par));  
+            // console.log(Object.keys(job.pdi_par).length); 
+            // for (i=0; i < Object.keys(job.pdi_par).length; i++) {
+            //     console.log(' i='+i+' '+ Object.keys(job.pdi_par)[i]);
+            // };
+        }
+    }
+
+    // Get
+    function axiosGet() {
+        const Url='http://menhir:3000/dishes';
+        console.log("log funzione axiosGet:" + Url)
+        // make request to our API
+        axios.get(Url)
+        .then(function(response) {
+            console.log(response.data);
+            $("#get_res").text(response.data);
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+        
+    }
+    // Get Id
+    function axiosGetId(id) {
+        const base='http://menhir:3000/dishes/';
+        let Url=base+id;
+        console.log("log funzione axiosGetId:" + Url)
+        // make request to our API
+        axios.get(Url)
+        .then(function(response) {
+            console.log('axios.get.then');
+            console.log('Status: ' + response.statusText + ' ('+response.statusText+')');
+            console.log(response.data); 
+            $(".gruppo-parametri").hide();
+            currentJob = response.data;         
+            // console.log(response.statusText);
+            // console.log(response.headers);
+            // console.log(response.config);
+            $("#get_res").text(currentJob.name);
+            $("#job_des").text(currentJob.name);
+            $("#job_dir").val(currentJob.rep_dir);
+            $("#job_name").val(currentJob.rep_obj);
+            formParametri(currentJob);
+        })
+        .catch(function(error) {
+            console.log('axios.get.catch');
+            console.log(error.message);
+            $("#log").text(error.message);            
+        })
+        
+    }
+    // Visualizza i campi variabili del form per l'inserimento dei parametri
+    function formParametri(job) {
+        var j=0;
+        var ele, label; 
+        if (job.pdi_par) {
+            for (var k in job.pdi_par) {
+                console.log(' -param='+k+'='+job.pdi_par[k]); 
+                ele = $("#P"+j);
+                grp = $("#PP"+j);
+                label =  $("label[for='P" + j + "']")
+                ele.val(job.pdi_par[k]);
+                label.text(k);
+                j++;
+                grp.show();
+            };
+        }
+    }
+
+    //Post
+    function axiosPost() {
+        const Url='http://menhir:3000/dishes';
+        let parametri = {
+            cmd: './pan.sh',
+            working_dir: '/home/pentaho/pdi-ce-8.2.0.0-342/data-integration',
+            rep_name: 'dbRep_PDI_7',
+            rep_dir: 'testBI',
+            rep_obj: 'test Transf',
+            rep_usr: 'admin',
+            rep_pwd: 'admin'    
+        };
+
+        //pdi_par: {anno:'2019',mese:'09'}
+        parametri.pdi_par={};
+        parametri.pdi_par.anno='yyyy';
+        parametri.pdi_par.mese='mm';
+
+        axios.post(Url,parametri)
+        .then(function(response) {
+            console.log(response.data);
+            $("#post_res").text(response.data.echo);
+            $("#cmd").text(response.data.cmd);
+            $("#working_dir").text(response.data.working_dir);
+            $("#rep_obj").text(response.data.rep_obj);
+            $("#log").text(response.data.log);
+            $("#err").text(response.data.err);
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+        // $("#post_res").text("hai clickkato");
+        // $("#bt1").hide();
+    }
+    
+    </script>
+</html>
