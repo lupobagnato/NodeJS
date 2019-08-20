@@ -11,19 +11,25 @@ function kettleRun(req, callback){
     const rep_obj ='-trans=' + req.body.rep_obj;
     const rep_usr ='-user=' + req.body.rep_usr;
     const rep_pwd ='-pass=' + req.body.rep_pwd;
-    const param1 =' -param=anno=2019'; 
-    const param2 =' -param=mese=09';
+    const lista_parametri = req.body.pdi_par
 
     let run_log = '' //cmd + working_dir;
     let err_log = '' //rep_dir+rep_obj;
 
-    
+    let kettle_call = [rep_name, rep_dir, rep_obj, rep_usr, rep_pwd];
 
-    const kettle_call = [rep_name, rep_dir, rep_obj, rep_usr, rep_pwd, param1, param2];
+    for (var k in lista_parametri) {
+        pp = ' -param='+k+'='+lista_parametri[k]
+        // console.log('kettleRun: '+ pp); 
+        kettle_call.push(pp);
+    }
+    console.log(kettle_call);
+
+    
 
     // ***** CallBack di test, senza eseguire Kettle *****
     let messaggio = {
-        log: param1+param2,
+        log: cmd,
         err: err_log
     };
     callback(messaggio);

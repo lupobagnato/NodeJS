@@ -13,7 +13,7 @@
 
     <!-- jQuery -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-    
+        
     <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
     <script src="moduli_copiati/jquery/dist/jquery.slim.min.js"></script>
     <script src="moduli_copiati/popper.js/dist/umd/popper.min.js"></script>
@@ -130,13 +130,13 @@
         // $("#ultimo").after(txt);
     }
     function hideEle() {
-        var ele = $("#PP1");
+        var ele = $("#PP0");
         if (ele.is(":visible")) 
-            // ele.hide();
             $(".gruppo-parametri").hide();
+            // $(".gruppo-parametri").fadeOut();   // almeno jQuery 3.4.1
         else
-            // ele.show();
             $(".gruppo-parametri").show(); 
+            // $(".gruppo-parametri").fadeIn();   // almeno jQuery 3.4.1
     }
     function x(job) {
         var j=0;
@@ -214,7 +214,6 @@
         var ele, label; 
         if (job.pdi_par) {
             for (var k in job.pdi_par) {
-                console.log(' -param='+k+'='+job.pdi_par[k]); 
                 ele = $("#P"+j);
                 grp = $("#PP"+j);
                 label =  $("label[for='P" + j + "']")
@@ -229,24 +228,15 @@
     //Post
     function axiosPost() {
         const Url='http://menhir:3000/dishes';
-        let parametri = {
-            cmd: './pan.sh',
-            working_dir: '/home/pentaho/pdi-ce-8.2.0.0-342/data-integration',
-            rep_name: 'dbRep_PDI_7',
-            rep_dir: 'testBI',
-            rep_obj: 'test Transf',
-            rep_usr: 'admin',
-            rep_pwd: 'admin'    
-        };
+        
+        let cj = currentJob;
+        setParametri(cj);
+        // console.log('dopo');
+        // console.log(cj);
 
-        //pdi_par: {anno:'2019',mese:'09'}
-        parametri.pdi_par={};
-        parametri.pdi_par.anno='yyyy';
-        parametri.pdi_par.mese='mm';
-
-        axios.post(Url,parametri)
+        axios.post(Url,cj)
         .then(function(response) {
-            console.log(response.data);
+            // console.log(response.data);
             $("#post_res").text(response.data.echo);
             $("#cmd").text(response.data.cmd);
             $("#working_dir").text(response.data.working_dir);
@@ -261,5 +251,18 @@
         // $("#bt1").hide();
     }
     
+    function setParametri(job) {
+        var j=0;
+        var ele, label; 
+        if (job.pdi_par) {
+            for (var k in job.pdi_par) {
+                ele = $("#P"+j);
+                console.log(k+'='+ ele.val()); 
+                job.pdi_par[k] = ele.val();
+                j++;                
+            };
+        }
+    }
+
     </script>
 </html>
