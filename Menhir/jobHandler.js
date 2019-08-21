@@ -19,12 +19,13 @@ function findJob(id, callback){
     
 };
 
-function parametersJob(id) {
-    console.log('Cerco i parametri del Id: ' + id);
+function allJobs(callback) {
+    console.log('allJobs()');
+    callback(null, jobArray)
 };
 
 exports.findJob = findJob;
-exports.parametersJob = parametersJob;
+exports.allJobs = allJobs;
 
 console.log(`modulo : ${module.filename}`);
 console.log(module.exports);

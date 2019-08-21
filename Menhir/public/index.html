@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/moduli_copiati/bootstrap/dist/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css"> -->
     <!-- <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css"> -->
+    
     <link rel="stylesheet" href="/stylesheets/style.css">
 
     <!-- jQuery -->
@@ -25,25 +26,34 @@
     <title> index.html </title>
 </head>
 
-    <body>
+    <body onload=autoExec()>
         <div class="container">
             <div class="row row-content">
-                <div class="col-md-4">    <!-- lato SX-->
-                    <div class="row">
-                        <button type="button" class="btn btn-primary" onclick="axiosGetId('0')">Test 0</button>
+                <div class="col-md-4">    <!-- lato SX (border border-secondary rounded) -->
+                <div id="ElencoJob">   
+                    <!-- Test tipi di LINK : style="display:none" -->
+                    <div id="bzero" class="row" style="display:none">
+                        <button type="button" class="btn btn-link btn-sm" onclick="axiosGetId('0')">Test 0 btn-link btn-sm</button>
                     </div>
-                    <div class="row">
-                        <button type="button" class="btn btn-info" onclick="axiosGetId('1')" >Test 1</a>                        
+                    <div class="row" style="display:none">
+                        <a href="#" onclick="axiosGetId('1')">Test 1 solo tag "a"</a>                        
                     </div>                
-                    <div class="row">
-                        <button type="button" class="btn btn-primary" onclick="axiosGetId('2')">Test 2</button>
+                    <div class="row" style="display:none">
+                        <a href="#" class="badge badge-light" onclick="axiosGetId('2')">Test 2 badge-light</a>
                     </div>
-                    <div class="row">
-                        <button type="button" class="btn btn-info" onclick="axiosGetId('9')">Test 9</button>
+                    <div class="row" style="display:none">
+                        <a href="#" class="badge badge-info" onclick="axiosGetId('3')">Test 3 badge-info</a>
                     </div>
-                    <hr>
-                </div>
-                <div class="col-md">    <!-- lato DX-->
+                    <div class="row" style="display:none">
+                        <a href="#" class="badge badge-dark" onclick="axiosGetId('4')">Test 4 badge-dark</a>
+                    </div>
+                    <div class="row" style="display:none">
+                        <button type="button" class="btn btn-info" onclick="axiosGetId('9')">Test 9 btn-info </button>
+                    </div>
+                    <!-- Fine tipi di LINK -->
+                </div>                    <!-- fine Elenco Job -->                     
+                </div>               
+                <div class="col-md-8">    <!-- lato DX-->
                     <h4 id=job_des>nome procedura</h4>
                     <form action="">
                         <!-- Campi di Input -->
@@ -79,90 +89,108 @@
                             </div>
                         </div>  
 
+                        <div class="gruppo-parametri form-group row" id="PP3" name="PPall" style="display:none">
+                            <label for="P3" class="col-md-2 col-form-label">parametro 3</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="P3" placeholder="____">
+                            </div>
+                        </div>  
+                        <div class="gruppo-parametri form-group row" id="PP4" name="PPall" style="display:none">
+                            <label for="P4" class="col-md-2 col-form-label">parametro 4</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="P4" placeholder="____">
+                            </div>
+                        </div>  
+                        <div class="gruppo-parametri form-group row" id="PP5" name="PPall" style="display:none">
+                            <label for="P5" class="col-md-2 col-form-label">parametro 5</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="P5" placeholder="____">
+                            </div>
+                        </div>  
+                        <div class="gruppo-parametri form-group row" id="PP6" name="PPall" style="display:none">
+                            <label for="P6" class="col-md-2 col-form-label">parametro 6</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="P6" placeholder="____">
+                            </div>
+                        </div>  
+                        <div class="gruppo-parametri form-group row" id="PP7" name="PPall" style="display:none">
+                            <label for="P7" class="col-md-2 col-form-label">parametro 7</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="P7" placeholder="____">
+                            </div>
+                        </div>  
+                        <div class="gruppo-parametri form-group row" id="PP8" name="PPall" style="display:none">
+                            <label for="P8" class="col-md-2 col-form-label">parametro 8</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="P8" placeholder="____">
+                            </div>
+                        </div>  
+                        <div class="gruppo-parametri form-group row" id="PP9" name="PPall" style="display:none">
+                            <label for="P9" class="col-md-2 col-form-label">parametro 9</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="P9" placeholder="____">
+                            </div>
+                        </div>  
+
                         <!-- Bottoni -->
                         <div class="form-group row">
-                            <div class="offset-md-2 col-md-6">
-                                <button class="btn btn-primary" type="button" onclick="axiosPost()">Run</button>
+                            <div class="offset-md-2 col-md-4">
+                                <button class="btn btn-primary" type="button" onclick="buttonRun()">Run</button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-success" type="button" onclick="test()">Test</button>
+                                <button class="btn btn-dark btn-sm" type="button" onclick="test()">Test</button>
                             </div>
                             <div class="col-md-2">
-                                    <button class="btn btn-success" type="button" onclick="hideEle()">Hide</button>
+                                    <button class="btn btn-basic btn-sm" type="button" onclick="axiosGet()">axiosGet()</button>
                             </div>
-
+                            <div class="col-md-2">
+                                <button class="btn btn-warning btn-sm" type="button" onclick="toggleEle()">Togg</button>
+                            </div>
                         </div>
-                    </form>
-                    <hr>
+                    </form>                    
+                    <div class="form-group">
+                        <label for="err">Err</label>
+                        <textarea id="err" style = "font-family:arial; color:rgb(255, 0, 0);" class="form-control" rows="1"> </textarea>
+                        <label for="log">Log</label>
+                        <textarea id="log" style = "font-family:arial; color:rgb(0, 0, 255);" class="form-control" rows="10"> </textarea>
+                    </div>
                 </div>
 
             </div>
         </div>
-        <div class="container">
-            <div hidden>
-                <button id="bt1" onclick="axiosGet()">Axios GET</button>
-                <p id="get_res"></p>                
-                <button id="bt2" onclick="axiosPost()">Axios POST</button>
-            </div>    
-                <!-- <h6 id="post_res"></h6>
-                <h4 id="cmd">cmd</h4>
-                <h4 id="working_dir">working_dir</h4>
-                <h2 id="rep_obj">rep_obj</h2> -->
-                <h6 id="log" style = "font-family:arial; color:rgb(0, 0, 255);">log log log log </h6>
-                <!-- <h6 id="err" style = "font-family:arial; color:rgb(255, 0, 0);">err err err err </h6> -->            
-        </div>
-        
     </body>
     
     <script>
      var currentJob = {};
 
-    // TEST
+     function autoExec() {
+         axiosGet();
+     }
+
+    // TEST _________________________________________________________________________________________________________
     function test() {
-        var ele = $("#param1");    
+        var ele = $("#ElencoJob");    
+        var b0 = $("#bzero");   
         console.log(ele.attr('id'));
         console.log(ele.html());
-        ele.attr('name', 'Anno');
-        ele.attr('placeholder', 'YYYY');
-        var label = $("label[for='param1']")
-        console.log(label.text())
-        label.text('Anno')
-        // $("#ultimo").after(txt);
+        console.log(b0.attr('id'));
+        console.log(b0.html());
+
+                
+        const button = '<button type="button" class="btn btn-info" onclick="axiosGetId(\'xIDx\')" >xNOMEx</button> '
+        const div = '<div class="row">' + button + '</div>';
+        var new_div = div.replace("xIDx", "10");
+        new_div = new_div.replace("xNOMEx", "Procedura 10");
+        ele.append(new_div);
+        console.log(ele.attr('id'));
+        console.log(ele.html());
     }
-    function hideEle() {
-        var ele = $("#PP0");
-        if (ele.is(":visible")) 
-            $(".gruppo-parametri").hide();
-            // $(".gruppo-parametri").fadeOut();   // almeno jQuery 3.4.1
-        else
-            $(".gruppo-parametri").show(); 
-            // $(".gruppo-parametri").fadeIn();   // almeno jQuery 3.4.1
+    
+    function toggleEle() {
+        $(".gruppo-parametri").toggle();
     }
-    function x(job) {
-        var j=0;
-        var ele, label; 
-        console.log(job);        
-        if (job.pdi_par) {
-            // console.log(job.pdi_par);                
-            for (var k in job.pdi_par) {
-                console.log(' -param='+k+'='+job.pdi_par[k]); 
-                ele = $("#P"+j);
-                grp = $("#PP"+j);
-                label =  $("label[for='P" + j + "']")
-                ele.val(job.pdi_par[k]);
-                label.text(k);
-                j++;
-                grp.show();
-            };
-            
-            // var i;
-            // console.log(Object.keys(job.pdi_par));  
-            // console.log(Object.keys(job.pdi_par).length); 
-            // for (i=0; i < Object.keys(job.pdi_par).length; i++) {
-            //     console.log(' i='+i+' '+ Object.keys(job.pdi_par)[i]);
-            // };
-        }
-    }
+    
+    // ________________________________________________________________________________________________________________
 
     // Get
     function axiosGet() {
@@ -171,19 +199,39 @@
         // make request to our API
         axios.get(Url)
         .then(function(response) {
-            console.log(response.data);
-            $("#get_res").text(response.data);
+            // console.log(response.data);
+            // $("#log").val(response.data);
+            listJobs(response.data);
         })
         .catch(function(error) {
             console.log(error);
         })
         
     }
+    function listJobs(jobArray){
+        var ele = $("#ElencoJob"); 
+        var new_div;   
+        const link = '<a href="#" onclick="axiosGetId(\'xIDx\')">xNOMEx</a>';
+        const div = '<div class="row">' + link + '</div>';
+
+        for (var j in jobArray){
+            // console.log(j);
+            console.log(jobArray[j].id);
+            console.log(jobArray[j].name);
+            new_div = div.replace("xIDx", jobArray[j].id);
+            new_div = new_div.replace("xNOMEx", jobArray[j].name);
+            ele.append(new_div);
+        }
+    }
     // Get Id
     function axiosGetId(id) {
         const base='http://menhir:3000/dishes/';
         let Url=base+id;
-        console.log("log funzione axiosGetId:" + Url)
+        
+        console.log("log funzione axiosGetId:" + Url);
+        $("#log").val(null);
+        $("#err").val(null); 
+
         // make request to our API
         axios.get(Url)
         .then(function(response) {
@@ -192,19 +240,17 @@
             console.log(response.data); 
             $(".gruppo-parametri").hide();
             currentJob = response.data;         
-            // console.log(response.statusText);
-            // console.log(response.headers);
-            // console.log(response.config);
-            $("#get_res").text(currentJob.name);
             $("#job_des").text(currentJob.name);
             $("#job_dir").val(currentJob.rep_dir);
             $("#job_name").val(currentJob.rep_obj);
             formParametri(currentJob);
+            // oggetto job nel Log
+            $("#log").val(JSON.stringify(currentJob).replace(/,/g,",\n").replace(/{/g,"{\n").replace(/}/g,"\n}"));
         })
         .catch(function(error) {
             console.log('axios.get.catch');
             console.log(error.message);
-            $("#log").text(error.message);            
+            $("#log").val(error.message);            
         })
         
     }
@@ -224,40 +270,46 @@
             };
         }
     }
+    // bottone RUN
+    function buttonRun() {
+        console.log('buttonRun()');
+        $("#log").val(null); 
+        $("#err").val(null); 
 
-    //Post
-    function axiosPost() {
-        const Url='http://menhir:3000/dishes';
-        
         let cj = currentJob;
         setParametri(cj);
-        // console.log('dopo');
-        // console.log(cj);
+        axiosPost(cj);        
+    }
+    //Post
+    function axiosPost(job) {
+        const Url='http://menhir:3000/dishes';
 
-        axios.post(Url,cj)
+        axios.post(Url,job)
         .then(function(response) {
             // console.log(response.data);
-            $("#post_res").text(response.data.echo);
-            $("#cmd").text(response.data.cmd);
-            $("#working_dir").text(response.data.working_dir);
-            $("#rep_obj").text(response.data.rep_obj);
-            $("#log").text(response.data.log);
-            $("#err").text(response.data.err);
+            console.log("axiosPost: response.data = \n" + JSON.stringify(response.data));
+            $("#log").val(response.data.log);
+            $("#err").val(response.data.err);
         })
         .catch(function(error) {
             console.log(error);
         })
-        // $("#post_res").text("hai clickkato");
-        // $("#bt1").hide();
     }
     
+    // copia i valori dei parametri
+    // dal Form a currentJob
     function setParametri(job) {
         var j=0;
         var ele, label; 
+
+        job.rep_dir = $("#job_dir").val();
+        job.rep_obj = $("#job_name").val();
+        // console.log('$("#job_dir").val()' + $("#job_dir").val());
+
         if (job.pdi_par) {
             for (var k in job.pdi_par) {
                 ele = $("#P"+j);
-                console.log(k+'='+ ele.val()); 
+                console.log(' setParametri(job): ' + k + '=' + ele.val()); 
                 job.pdi_par[k] = ele.val();
                 j++;                
             };

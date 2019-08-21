@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 //
 const kettleRun = require('../kettleRun');
 const jH = require('../jobHandler');
-//const kettle_runner = require('../kettle_runner');
 //
 
 const dishRouter = express.Router();
@@ -23,20 +22,30 @@ dishRouter.route('/')
 .get((req,res,next)=>{
 
     console.log('GET senza Id');
-    res.end('GET senza Id: ritornerà intero array JSON dei Jobs' )
+    // res.end('GET senza Id: ritornerà intero array JSON dei Jobs' )
+    jH.allJobs((err, jobsArray)=>{
+        if (err) {
+            console.log(`dishRouter: chiamata a allJobs() err.message = ${err.message}`); 
+            res.statusCode=404;
+            res.end(err.message);    
+        }
+        else {            
+            res.json(jobsArray);
+        };
+    });
     // non c'è la chiamata a next() quindi conclude
     // la gestione della get per la route '/dishes'
 })
 //POST
 .post((req,res,next)=>{
-    const echo = 
-        'COMANDO: ' + req.body.cmd +'<br>' +
-        // 'working_dir: ' + req.body.working_dir +'\n' +
-        'rep_name: ' + req.body.rep_name +'\n' +
-        'rep_dir: ' + req.body.rep_dir +'\n' +
-        'rep_obj: ' + req.body.rep_obj +'\n' +
-        'rep_usr: ' + req.body.rep_usr +'\n' +
-        'rep_pwd: ' + req.body.rep_pwd ;
+    // const echo = 
+    //     'COMANDO: ' + req.body.cmd +'\n' +
+    //     'working_dir: ' + req.body.working_dir +'\n' +
+    //     'rep_name: ' + req.body.rep_name +'\n' +
+    //     'rep_dir: ' + req.body.rep_dir +'\n' +
+    //     'rep_obj: ' + req.body.rep_obj +'\n' +
+    //     'rep_usr: ' + req.body.rep_usr +'\n' +
+    //     'rep_pwd: ' + req.body.rep_pwd ;
     
     console.log(req.body);
     
@@ -44,7 +53,7 @@ dishRouter.route('/')
         // console.log('§router log: \n'+ msg.log);  
         // console.log('§router err: \n'+ msg.err);
         let risposta = {
-                echo: echo,
+                // echo: echo,
                 cmd: req.body.cmd,
                 working_dir:  req.body.working_dir,
                 rep_name:  req.body.rep_name,

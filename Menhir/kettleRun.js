@@ -13,8 +13,8 @@ function kettleRun(req, callback){
     const rep_pwd ='-pass=' + req.body.rep_pwd;
     const lista_parametri = req.body.pdi_par
 
-    let run_log = '' //cmd + working_dir;
-    let err_log = '' //rep_dir+rep_obj;
+    let run_log = '';
+    let err_log = '';
 
     let kettle_call = [rep_name, rep_dir, rep_obj, rep_usr, rep_pwd];
 
@@ -23,42 +23,56 @@ function kettleRun(req, callback){
         // console.log('kettleRun: '+ pp); 
         kettle_call.push(pp);
     }
+    console.log('kettle_call');
     console.log(kettle_call);
 
     
 
     // ***** CallBack di test, senza eseguire Kettle *****
-    let messaggio = {
-        log: cmd,
-        err: err_log
-    };
-    callback(messaggio);
+    // let messaggio = {
+    //     log: cmd,
+    //     err: err_log
+    // };
+    // callback(messaggio);
     // ***************************************************
 
 
-    // const cmd_line = spawn(cmd, kettle_call, {cwd:working_dir });    
+    const cmd_line = spawn(cmd, kettle_call, {cwd:working_dir });    
   
-    // cmd_line.on('exit', (code) => { 
-    //     console.log(`§§§ runKettle exited with code ${code} §§§`);
-    // });  
+    cmd_line.on('exit', (code) => { 
+        console.log(`§§§ runKettle exited with code ${code} §§§`);
+        if (code !== 0) {
+            err_log += `runKettle exited with code ${code} \n`;
+            err_log += run_log.substring(run_log.indexOf('ERROR'),run_log.length);
+        }
+     
+        let messaggio = {
+            log: run_log,
+            err: err_log
+        };
+        callback(messaggio);
 
-    // cmd_line.stdout.on('data', (data) => {
-    //     console.log('# blocco  Start#\n' + data.toString() + '\n# blocco End #\n') ;
-    //     run_log += data.toString();
-    // });  
+    });  
+
+    cmd_line.stdout.on('data', (data) => {
+        console.log('# blocco  Start#\n' + data.toString() + '\n# blocco End #\n') ;
+        run_log += data.toString();
+    });  
     
-    // cmd_line.stderr.on('data', (data) => {
-    //     console.log('# ERR #\n' + data.toString() + '\n###### #\n') ;
-    //     err_log += data.toString();
-    // });  
+    cmd_line.stderr.on('data', (data) => {
+        console.log('# ERR #\n' + data.toString() + '\n###### #\n') ;
+        err_log += data.toString();
+    });  
     
+     
     // cmd_line.stdout.on('end', (data) => {
     //     let messaggio = {
     //         log: run_log,
     //         err: err_log
     //     };
     //     callback(messaggio);
-    // });
+    // }); 
+    
   
 }  
 

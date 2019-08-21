@@ -1,0 +1,89 @@
+<header></header>
+<body>
+
+<!-- Glyph Icons non funzionano, ci vuole una ver + recente di Bootstrap ? -->
+<div class="row">
+    <a href="#" onclick="axiosGetId('1')">
+        <span class="glyphicon glyphicon-envelope"></span>
+        Test 1 solo tag "a" 
+    </a>                        
+</div>    
+
+<!-- Dimensioni degli H1-H6 e colori -->
+<div class="container">
+        <div hidden>
+            <button id="bt1" onclick="axiosGet()">Axios GET</button>
+            <p id="get_res"></p>                
+            <button id="bt2" onclick="axiosPost()">Axios POST</button>
+            <h6 id="post_res"></h6>
+            <h4 id="cmd">cmd</h4>
+            <h4 id="working_dir">working_dir</h4>
+            <h2 id="rep_obj">rep_obj</h2> -->
+            <h6 id="log" style = "font-family:arial; color:rgb(0, 0, 255);">log log log log </h6>
+            <h6 id="err" style = "font-family:arial; color:rgb(255, 0, 0);">err err err err </h6>
+        </div>    
+</body>
+<script>
+
+function test() {
+        var ele = $("#ElencoJob");    
+        var b0 = $("#bzero");   
+        console.log(ele.attr('id'));
+        console.log(ele.html());
+        console.log(b0.attr('id'));
+        console.log(b0.html());
+
+        // $("#bzero").appendTo($("#ElencoJob"));
+        
+        const button = '<button type="button" class="btn btn-info" onclick="axiosGetId(\'xIDx\')" >xNOMEx</button> '
+        const div = '<div class="row">' + button + '</div>';
+        var new_div = div.replace("xIDx", "10");
+        new_div = new_div.replace("xNOMEx", "Procedura 10");
+        ele.append(new_div);
+        console.log(ele.attr('id'));
+        console.log(ele.html());
+
+        // Esempi uso Attributi
+        ele.attr('name', 'Anno');
+        ele.attr('placeholder', 'YYYY');   
+           
+        // $("#ultimo").after(txt);
+    }
+
+function hideEle() {
+    var ele = $("#PP0");
+    if (ele.is(":visible")) 
+        $(".gruppo-parametri").hide();
+        // $(".gruppo-parametri").fadeOut();   // almeno jQuery 3.4.1
+    else
+        $(".gruppo-parametri").show(); 
+        // $(".gruppo-parametri").fadeIn();   // almeno jQuery 3.4.1
+}
+
+function x(job) {
+        var j=0;
+        var ele, label; 
+        console.log(job);        
+        if (job.pdi_par) {
+            // console.log(job.pdi_par);                
+            for (var k in job.pdi_par) {
+                console.log(' -param='+k+'='+job.pdi_par[k]); 
+                ele = $("#P"+j);
+                grp = $("#PP"+j);
+                label =  $("label[for='P" + j + "']")
+                ele.val(job.pdi_par[k]);
+                label.text(k);
+                j++;
+                grp.show();
+            };
+            
+            // var i;
+            // console.log(Object.keys(job.pdi_par));  
+            // console.log(Object.keys(job.pdi_par).length); 
+            // for (i=0; i < Object.keys(job.pdi_par).length; i++) {
+            //     console.log(' i='+i+' '+ Object.keys(job.pdi_par)[i]);
+            // };
+        }
+    }
+
+</script>
